@@ -3,7 +3,7 @@
 +Bước 1: bạn cần điền đầy đủ thông tin để vào game. <br>
   
 +Bước 2: sau khi điền đầy đủ bạn nhấn OK để load vào game.<br>
-+Bước 3: đặt cược và lắc xí ngầu.
++Bước 3: đặt cược và lắc xí ngầu.<br>
 ![img](http://bandocobacbip.com/images/item/bau-cua-tom-ca-s-18.jpg)
 
 </h1>
