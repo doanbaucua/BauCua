@@ -1,3 +1,5 @@
+package com.example.duanbaucua;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.drawable.AnimationDrawable;
@@ -10,6 +12,7 @@ import android.view.View;
 
 
 import android.view.Window;
+import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -23,7 +26,7 @@ import java.util.TimerTask;
 
 
 
-public class MainActivity extends AppCompatActivity {
+public class Manhinh2 extends AppCompatActivity {
 
 
     GridView gridView;
@@ -70,11 +73,21 @@ public class MainActivity extends AppCompatActivity {
                         tienthuong +=gtDatCuoc[i];
                     }
                     if (i != giatriXingau1 && i != giatriXingau2 && i != giatriXingau3){
-                        tienthuong = gtDatCuoc[i];
+                        tienthuong -= gtDatCuoc[i];
                     }
 
                 }
             }
+            if(tienthuong >0){
+                Toast.makeText(getApplicationContext(),"B?n dă th?ng du?c " + tienthuong,Toast.LENGTH_SHORT).show();
+
+            }else  if(tienthuong ==0){
+                Toast.makeText(getApplicationContext(),"Hên nha mém m?t ti?n ngu! " ,Toast.LENGTH_SHORT).show();
+
+            }else {
+                Toast.makeText(getApplicationContext(), "Ôi den quá m?t   " + tienthuong + "r?i T-T", Toast.LENGTH_SHORT).show();
+            }
+
             LuuDuLieuNguoiDung(tienthuong);
             tvTien.setText(String.valueOf(tongtienmoi));
             return false;
@@ -87,12 +100,22 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected  void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
+        setContentView(R.layout.activity_manhinh2);
+        Button btnCancel =  (Button)findViewById(R.id.button2);
         hinhxingau1 = (ImageView) findViewById(R.id.xingau1);
         hinhxingau2 = (ImageView) findViewById(R.id.xingau2);
         hinhxingau3 = (ImageView) findViewById(R.id.xingau3);
         tvTien = (TextView) findViewById(R.id.tvTien);
+
+
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+                                         public void onClick(View v) {
+                                             cancel(v);
+                                         }
+                                     }
+        );
+
+
 
         gridView = (GridView) findViewById(R.id.gvBanco);
         adapter = new Custom_Gridview_BanCo(this, R.layout.custom_banco, dsHinh);
@@ -124,16 +147,29 @@ public class MainActivity extends AppCompatActivity {
         cdXingau2 = (AnimationDrawable) hinhxingau2.getDrawable();
         cdXingau3 = (AnimationDrawable) hinhxingau3.getDrawable();
 
+        for (int i = 0; i < gtDatCuoc.length; i++){
+            kiemtra += gtDatCuoc[i];
 
-        cdXingau1.start();
-        cdXingau2.start();
-        cdXingau3.start();
-        tienthuong = 0;
-        timer.schedule(new Lacxingau(), 1000);
-
-        for (int i = 0 ; i < gtDatCuoc.length; i++){
-            Log.d("KetQua"," " + i + "-" + gtDatCuoc[i]);
         }
+        if (kiemtra ==0){
+            Toast.makeText(getApplicationContext(),"B?n vui ḷng d?t cu?c !", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            if (kiemtra > tongtiencu) {
+                Toast.makeText(getApplicationContext(),"B?n không d? ti?n d?t cu?c !", Toast.LENGTH_SHORT).show();
+            }else {
+                cdXingau1.start();
+                cdXingau2.start();
+                cdXingau3.start();
+
+
+                tienthuong = 0;
+                timer.schedule(new Lacxingau(), 1000);
+
+            }
+        }
+
+
 
 
 
@@ -198,7 +234,7 @@ public class MainActivity extends AppCompatActivity {
                 giatriXingau2 = rd;
                 break;
             case 2:
-                hinhxingau1.setImageResource(dsHinh[2]);
+                hinhxingau2.setImageResource(dsHinh[2]);
                 giatriXingau2 = rd;
                 break;
             case 3:
@@ -253,7 +289,8 @@ public class MainActivity extends AppCompatActivity {
 
         }
     }
+    public void cancel(View v){
+        System.exit(0);
+    }
 }
-
-
 
